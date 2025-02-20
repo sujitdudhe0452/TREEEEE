@@ -1,0 +1,38 @@
+1) USING BFS
+
+Queue (q) stores nodes to be processed.
+Loop runs until q is empty:
+Get the number of nodes in the current level.
+Process each node, add its value to level.
+Push left & right children into q (if exist).
+Store level in ans.
+Returns ans (2D vector) containing level-wise nodes.
+✅ Time Complexity: O(N) (each node is visited once).
+✅ Space Complexity: O(N) (queue stores at most one level at a time).
+
+  vector<vector<int>> levelOrder(Node *root) 
+    {
+        vector<vector<int>>ans;
+        queue<Node*>q;
+        q.push(root);
+        
+        while(!q.empty())
+        {
+            int size = q.size();
+            vector<int> level;
+            for(int i=0;i<size;i++)
+            {
+                auto node = q.front();
+                q.pop();
+                level.push_back(node->data);
+                if (node->left) q.push(node->left);
+                if (node->right) q.push(node->right);
+
+            }
+            ans.push_back(level);
+            
+        }
+        return ans;
+    }
+
+

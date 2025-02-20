@@ -1,0 +1,69 @@
+1)BFS
+
+Checks if the tree is empty and returns 0 if so.
+Uses a queue to perform level order traversal starting from the root node.
+Processes nodes level by level, incrementing the level counter after each complete level is traversed.
+Enqueues left and right children of the current node, ensuring all nodes are processed.
+Returns the total levels minus one as the height of the tree.
+✅ Time Complexity: O(N) (each node is visited once).
+✅ Space Complexity: O(N) (the queue can hold up to the number of nodes at the widest level).
+
+  int height(Node* node) 
+    {
+        if (node == nullptr)
+            return 0;
+        
+            int levelCount = 0;
+            queue<Node*> q;
+            q.push(node);
+            
+            while (!q.empty()) {
+                int count = q.size();
+                for (int i = 0; i < count; i++) {
+                    Node* curr = q.front();
+                    q.pop();
+                    if (curr->left)
+                        q.push(curr->left);
+                    if (curr->right)
+                        q.push(curr->right);
+                }
+                levelCount++;
+            }
+            
+            return levelCount - 1;
+    }
+
+
+2)DFS
+
+Implements a recursive DFS helper function to compute the height of the binary tree.
+The base case returns 0 if the current node is null, indicating no further depth.
+Recursively calculates the heights of the left and right subtrees, then returns 1 plus the greater of the two.
+The main height function calls the DFS helper and subtracts 1 to convert node count to edge count as height.
+✅ Time Complexity: O(N) (each node is visited once).
+✅ Space Complexity: O(N) (due to recursion stack in the worst case).
+
+class Solution {
+  public:
+    // Function to find the height of a binary tree.
+    
+    int dfs(Node* node)
+    {
+        
+        if(node==NULL) return 0;
+        
+        int left = dfs(node->left);
+        int right = dfs(node->right);
+        
+        return 1+max(left,right);
+    }
+    
+    int height(Node* node) 
+    {
+     
+        int ans = dfs(node);
+        
+        return ans-1;
+        
+    }
+};

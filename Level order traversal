@@ -35,4 +35,33 @@ Returns ans (2D vector) containing level-wise nodes.
         return ans;
     }
 
+2)USING DFS
+
+Uses DFS to traverse the tree while maintaining level information.
+If a new level is encountered, a new sub-vector is created in ans.
+Adds the current node's value to its corresponding level.
+Recursively processes left and right child nodes with an incremented level.
+Returns ans (2D vector) containing level-wise nodes.
+✅ Time Complexity: O(N) (each node is visited once).
+✅ Space Complexity: O(N) (recursive stack depth in the worst case).
+
+void dfs(Node* node, int level, vector<vector<int>>& ans) {
+    if (!node) return;
+    
+    if (level == ans.size()) 
+        ans.push_back({});
+    
+    ans[level].push_back(node->data);
+    
+    dfs(node->left, level + 1, ans);
+    dfs(node->right, level + 1, ans);
+}
+
+vector<vector<int>> levelOrder(Node* root) {
+    vector<vector<int>> ans;
+    dfs(root, 0, ans);
+    return ans;
+}
+
+
 

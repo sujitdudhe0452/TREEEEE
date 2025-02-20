@@ -1,0 +1,43 @@
+1)BFS
+A queue stores nodes to be processed while a stack is used to reverse the order of node values.
+In the loop, each node is dequeued, its value is pushed onto the stack, and its right then left child (if present) are enqueued.
+After the traversal, the stack is popped to form the final answer vector in reverse level order.
+Returns a vector containing the reversed level order traversal of the tree.
+✅ Time Complexity: O(N) (each node is processed once).
+✅ Space Complexity: O(N) (queue and stack can hold all nodes in the worst case).
+
+
+
+class Solution {
+  public:
+    vector<int> reverseLevelOrder(Node *root) 
+    {
+        // code here
+    
+        queue<Node*>q;
+        q.push(root);
+        vector<int>ans;
+        stack<int>st;
+        while(!q.empty())
+        {
+            Node* node  = q.front();
+            q.pop();
+            st.push(node->data);
+            if(node->right)q.push(node->right);
+            if(node->left) q.push(node->left);
+            
+        }
+        
+         while(!st.empty())
+        {
+            ans.push_back(st.top());
+            st.pop();
+        }
+        
+        return ans;
+    }
+};
+
+
+
+2)USING DFS
